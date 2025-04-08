@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="media/favicon.ico">
+    <title>Zork</title>
+    <style>
+      body {
+	      font-family: Arial, Helvetica, sans-serif;
+	      font-size: 250%;
+	      font-weight: bold;
+	      white-space: nowrap 
+      }
+      .container {
+    	  position: absolute;
+    	  top: 50%;
+    	  left: 50%;
+    	  transform: translateX(-50%) translateY(-50%);
+	      color: white;
+	      text-align: center; 
+      }
+      #action {
+	      background-color:black;
+	      color:white;
+	      border:none;
+	      outline:none;
+	      width:620px 
+      }
+      input[type="text"] {
+	      font-family: Arial, Helvetica, sans-serif;	
+	      font-size:100%;
+	      font-weight:bold; 
+      }
+    </style> 
+    <script>
+      function beginUpload() { 
+        window.location.href = "upload.html"; 
+      }
+      function typeOn(str, i) {
+ 	      var x = document.getElementById("zork");
+        x.innerHTML = "<p>"+str.substring(0,i+1)+'</p><p><form name="actionForm" onsubmit="return validateInput();"><input name="inputbox" type="text" id="action" maxlength=38></form></p>';
+	      if (i < str.length) {
+          setTimeout(function(){typeOn(str, i+1);}, 60);
+        } else { 
+          document.getElementById("action").focus(); 
+        } 
+      }
+      function flashRed() {
+        document.body.style.backgroundColor = "red";
+        setTimeout(function() {
+          document.body.style.backgroundColor = "black";
+        }, 100);
+      }
+      function validateInput(event) {
+	      var x = document.forms["actionForm"]["inputbox"].value;
+	      if (x.toLowerCase() != "attack troll with nasty knife") { 
+          flashRed();
+        } else { 
+          window.location.href = "upload.html"; 
+      } 
+	    return false; 
+    }
+    </script>
+  </head>
+  <body style="background-color:black">
+    <div id="zork" class="container">
+      <script>typeOn("The terrible troll raises his sword", 0)</script>
+    </div>
+  </body>
+</html>
